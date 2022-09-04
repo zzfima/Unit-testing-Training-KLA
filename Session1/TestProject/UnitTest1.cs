@@ -8,7 +8,7 @@ namespace TestProject
         [TestMethod]
         public void ReservationShouldPersist()
         {
-            var reservation = new Reservation(1, "Alex B.", 4);
+            var reservation = new Reservation(5, "Alex B.", 4);
         }
     }
 }

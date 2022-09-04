@@ -26,11 +26,11 @@ namespace UnitTestExercise
 
         #region Properties
 
-        public int Id { get; }
+        public int Id { get; set; }
 
-        public string ReservatorName { get; }
+        public string ReservatorName { get; set; }
 
-        public int Quantity { get; }
+        public int Quantity { get; set; }
 
         #endregion
 
