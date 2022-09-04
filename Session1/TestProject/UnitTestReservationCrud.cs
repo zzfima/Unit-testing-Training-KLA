@@ -7,14 +7,21 @@ namespace TestProject
     public class UnitTestReservationCrud
     {
         private FileInfo _file;
+        private Reservation _reservation;
+        private ReservationCrud _reservationPersister;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            var random = new Random();
+            _reservation = new Reservation(random.Next(), "Alex", 5);
+            _reservationPersister = new ReservationCrud();
+        }
 
         [TestMethod]
         public void ReservationShouldPersist()
         {
-            var reservationPersister = new ReservationCrud();
-            var random = new Random();
-            var reservation = new Reservation(random.Next(), "Alex", 5);
-            _file = reservationPersister.Persist(reservation);
+            _file = _reservationPersister.Persist(_reservation);
             File.Exists(_file.FullName).Should().BeTrue();
 
         }
@@ -22,12 +29,9 @@ namespace TestProject
         [TestMethod]
         public void ReservationShouldPersistAndRead()
         {
-            var reservationPersister = new ReservationCrud();
-            var random = new Random();
-            var reservation = new Reservation(random.Next(), "Alex", 5);
-            _file = reservationPersister.Persist(reservation);
-            var readReservation = reservationPersister.Read(_file);
-            reservation.Should().BeEquivalentTo(readReservation);
+            _file = _reservationPersister.Persist(_reservation);
+            var readReservation = _reservationPersister.Read(_file);
+            _reservation.Should().BeEquivalentTo(readReservation);
         }
 
         [TestCleanup]
