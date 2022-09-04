@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Xml.Serialization;
 
-namespace UnitTestExercise
+namespace UnitTestExercise.Reservation
 {
     [Serializable]
     public class Reservation

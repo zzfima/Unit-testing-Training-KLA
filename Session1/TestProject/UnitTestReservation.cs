@@ -1,10 +1,11 @@
 using FluentAssertions;
 using UnitTestExercise;
+using UnitTestExercise.Reservation;
 
 namespace TestProject
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTestReservation
     {
         [TestMethod]
         public void ReservationShouldPersist()
