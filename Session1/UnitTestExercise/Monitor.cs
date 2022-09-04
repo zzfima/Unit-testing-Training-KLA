@@ -12,8 +12,8 @@ namespace UnitTestExercise
 
         public Monitor(IConnectivityReporter connectivityReporter, IPingFactory pingFactory)
         {
-            this._connectivityReporter = connectivityReporter;
-            this._pingFactory = pingFactory;
+            _connectivityReporter = connectivityReporter;
+            _pingFactory = pingFactory;
         }
 
         public void CheckComputerAvailability(string ip, CancellationToken cancellationToken, TimeSpan timeout)

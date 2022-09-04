@@ -1,6 +1,5 @@
 using FluentAssertions;
 using UnitTestExercise;
-using UnitTestExercise.Reservation;
 
 namespace TestProject
 {

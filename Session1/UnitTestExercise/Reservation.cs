@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnitTestExercise.Reservation
+namespace UnitTestExercise
 {
     [Serializable]
     public class Reservation

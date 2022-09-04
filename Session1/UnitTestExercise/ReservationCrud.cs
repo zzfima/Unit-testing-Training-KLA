@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace UnitTestExercise.Reservation
+namespace UnitTestExercise
 {
     public class ReservationCrud : IReservationCrud
     {

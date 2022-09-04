@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace UnitTestExercise.Reservation
+namespace UnitTestExercise
 {
     public interface IReservationCrud
     {
