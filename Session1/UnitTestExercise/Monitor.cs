@@ -5,22 +5,6 @@ using System.Threading;
 
 namespace UnitTestExercise
 {
-    public interface IConnectivityReporter
-    {
-        void AttemptFailed(string ip);
-        void ConnectionFailed(string ip);
-    }
-
-    public interface IPing : IDisposable
-    {
-        PingReply Send(string ip, int millisec);
-    }
-
-    public interface IPingFactory
-    {
-        IPing Create();
-    }
-
     class Monitor
     {
         private readonly IConnectivityReporter connectivityReporter;
