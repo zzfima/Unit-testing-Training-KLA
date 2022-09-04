@@ -5,17 +5,17 @@ namespace UnitTestExercise
 {
     public class Reservation
     {
-        public Reservation(int id, string reservationistName, int quantity)
+        public Reservation(int id, string reservatorName, int quantity)
         {
             Id = id;
-            ReservationistName = reservationistName;
+            ReservatorName = reservatorName;
             Quantity = quantity;
             PersistReservation();
         }    
 
         public int Id { get; }
 
-        public string ReservationistName { get; }
+        public string ReservatorName { get; }
 
         public int Quantity { get; }
 
