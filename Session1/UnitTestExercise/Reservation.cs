@@ -5,21 +5,21 @@ namespace UnitTestExercise
 {
     public class Reservation
     {
-        public Reservation(int id, string reserverName, int quantity)
+        public Reservation(int id, string reservationistName, int quantity)
         {
             Id = id;
-            ReserverName = reserverName;
+            ReservationistName = reservationistName;
             Quantity = quantity;
-            PersisteReservation();
+            PersistReservation();
         }    
 
         public int Id { get; }
 
-        public string ReserverName { get; }
+        public string ReservationistName { get; }
 
         public int Quantity { get; }
 
-        private void PersisteReservation()
+        private void PersistReservation()
         {
             var serializer = new XmlSerializer(typeof(Reservation));
             using (var stream = new FileStream("Reservation " + Id, FileMode.CreateNew))

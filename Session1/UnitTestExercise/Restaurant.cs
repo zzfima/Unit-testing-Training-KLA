@@ -12,9 +12,9 @@ namespace UnitTestExercise
 
         public int Capacity { get; }
 
-        public bool CanAccept(IEnumerable<Reservation> existingReeservations, Reservation newReservation)
+        public bool CanAccept(IEnumerable<Reservation> existingReservations, Reservation newReservation)
         {
-            var reservedSeats = existingReeservations.Sum(r => r.Quantity);
+            var reservedSeats = existingReservations.Sum(r => r.Quantity);
 
             if (Capacity > reservedSeats + newReservation.Quantity)
                 return true;

@@ -7,41 +7,41 @@ namespace UnitTestExercise
 {
     class Monitor
     {
-        private readonly IConnectivityReporter connectivityReporter;
-        private readonly IPingFactory pingFactory;
+        private readonly IConnectivityReporter _connectivityReporter;
+        private readonly IPingFactory _pingFactory;
 
         public Monitor(IConnectivityReporter connectivityReporter, IPingFactory pingFactory)
         {
-            this.connectivityReporter = connectivityReporter;
-            this.pingFactory = pingFactory;
+            this._connectivityReporter = connectivityReporter;
+            this._pingFactory = pingFactory;
         }
 
         public void CheckComputerAvailability(string ip, CancellationToken cancellationToken, TimeSpan timeout)
         {
-            Stopwatch timeUsed = Stopwatch.StartNew();
-            int millisecsLeft = (int)timeout.TotalMilliseconds;
+            var timeUsed = Stopwatch.StartNew();
+            var millisecondsLeft = (int)timeout.TotalMilliseconds;
 
-            using (var ping = pingFactory.Create())
+            using (var ping = _pingFactory.Create())
             {
-                while (millisecsLeft > 0 && !cancellationToken.IsCancellationRequested)
+                while (millisecondsLeft > 0 && !cancellationToken.IsCancellationRequested)
                 {
                     try
                     {
-                        PingReply reply = ping.Send(ip, millisecsLeft);
+                        var reply = ping.Send(ip, millisecondsLeft);
                         if (reply?.Status == IPStatus.Success)
                         { 
                             return; 
                         }
 
-                        connectivityReporter.AttemptFailed(ip);
+                        _connectivityReporter.AttemptFailed(ip);
                     }
                     catch
                     {
                     }
-                    millisecsLeft = (int)(timeout - timeUsed.Elapsed).TotalMilliseconds;
+                    millisecondsLeft = (int)(timeout - timeUsed.Elapsed).TotalMilliseconds;
                 }
             }
-            connectivityReporter.ConnectionFailed(ip);
+            _connectivityReporter.ConnectionFailed(ip);
         }
     }
 }

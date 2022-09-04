@@ -5,6 +5,6 @@ namespace UnitTestExercise
 {
     public interface IPing : IDisposable
     {
-        PingReply Send(string ip, int millisec);
+        PingReply Send(string ip, int milliseconds);
     }
 }
