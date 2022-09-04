@@ -19,7 +19,6 @@ namespace UnitTestExercise
             Id = id;
             ReservatorName = reservatorName;
             Quantity = quantity;
-            PersistReservation();
         }
 
         #endregion
@@ -31,19 +30,6 @@ namespace UnitTestExercise
         public string ReservatorName { get; set; }
 
         public int Quantity { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        private void PersistReservation()
-        {
-            var serializer = new XmlSerializer(typeof(Reservation));
-            using (var stream = new FileStream("Reservation " + Id, FileMode.CreateNew))
-            {
-                serializer.Serialize(stream, this);
-            }
-        }
 
         #endregion
     }
