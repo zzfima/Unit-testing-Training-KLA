@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceChecker.cs" />
+    <Compile Include="IAcceptanceChecker.cs" />
     <Compile Include="IConnectivityReporter.cs" />
     <Compile Include="IPing.cs" />
     <Compile Include="IPingFactory.cs" />

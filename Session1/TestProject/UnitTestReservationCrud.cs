@@ -4,7 +4,7 @@ using UnitTestExercise;
 namespace TestProject
 {
     [TestClass]
-    public class UnitTestReservation
+    public class UnitTestReservationCrud
     {
         [TestMethod]
         public void ReservationShouldPersist()
