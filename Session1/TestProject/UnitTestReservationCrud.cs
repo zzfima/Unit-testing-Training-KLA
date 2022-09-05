@@ -13,15 +13,19 @@ namespace TestProject
         [TestInitialize]
         public void Initialize()
         {
+            //Arrange
             var random = new Random();
             _reservation = new Reservation(random.Next(), "Alex", 5);
             _reservationPersister = new ReservationCrud();
         }
 
         [TestMethod]
-        public void ReservationShouldPersist()
+        public void PersistShouldCreateFile()
         {
+            //Act
             _file = _reservationPersister.Persist(_reservation);
+
+            //Assert
             File.Exists(_file.FullName).Should().BeTrue();
 
         }
@@ -29,8 +33,11 @@ namespace TestProject
         [TestMethod]
         public void ReservationShouldPersistAndRead()
         {
+            //Act
             _file = _reservationPersister.Persist(_reservation);
             var readReservation = _reservationPersister.Read(_file);
+
+            //Assert
             _reservation.Should().BeEquivalentTo(readReservation);
         }
 
