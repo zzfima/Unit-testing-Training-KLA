@@ -4,5 +4,6 @@
     {
         int MillisecondsLeft { get; }
         void Start();
+        void Stop();
     }
 }

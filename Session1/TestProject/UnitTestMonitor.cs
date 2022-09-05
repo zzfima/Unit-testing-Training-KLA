@@ -13,6 +13,7 @@ namespace TestProject
         private int _attemptFailedCounter;
         private bool _isConnectionFailed;
         private Mock<IPingReplyCustom> _mockPingReplyCustom;
+        private TimeotChecker _mockTimeOut;
 
         [TestInitialize]
         public void Initialize()
@@ -43,10 +44,10 @@ namespace TestProject
         public void ShouldComputerBeAvailable()
         {
             //Arrange at initialize
-            var mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
+            _mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
 
             //Act
-            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), mockTimeOut);
+            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), _mockTimeOut);
 
             //Assert
             _isAttemptFailed.Should().BeFalse();
@@ -59,21 +60,21 @@ namespace TestProject
         {
             //Arrange at initialize
             _mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Unknown);
-            var mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
+            _mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
 
             //Act
-            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), mockTimeOut);
+            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), _mockTimeOut);
 
             //Assert
             _isAttemptFailed.Should().BeTrue();
             _isConnectionFailed.Should().BeTrue();
-            //_attemptFailedCounter.Should().Be(0);
+            _attemptFailedCounter.Should().Be(0);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-
+            _mockTimeOut.Stop();
         }
     }
 }

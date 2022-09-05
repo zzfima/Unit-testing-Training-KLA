@@ -20,5 +20,9 @@ namespace UnitTestExercise
             var millisecondsLeft = (int)_timeOut.TotalMilliseconds;
         }
 
+        public void Stop()
+        {
+            _timeUsed.Stop();
+        }
     }
 }
