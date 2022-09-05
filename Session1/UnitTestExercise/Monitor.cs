@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace UnitTestExercise
 {
-    class Monitor
+    public class Monitor : IMonitor
     {
         private readonly IConnectivityReporter _connectivityReporter;
         private readonly IPingFactory _pingFactory;
@@ -29,8 +29,8 @@ namespace UnitTestExercise
                     {
                         var reply = ping.Send(ip, millisecondsLeft);
                         if (reply?.Status == IPStatus.Success)
-                        { 
-                            return; 
+                        {
+                            return;
                         }
 
                         _connectivityReporter.AttemptFailed(ip);

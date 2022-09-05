@@ -6,9 +6,9 @@ namespace TestProject
     [TestClass]
     public class UnitTestReservationCrud
     {
-        private FileInfo _file;
-        private Reservation _reservation;
-        private ReservationCrud _reservationPersister;
+        private FileInfo? _file;
+        private Reservation? _reservation;
+        private ReservationCrud? _reservationPersister;
 
         [TestInitialize]
         public void Initialize()
