@@ -44,12 +44,14 @@
     <Compile Include="AcceptanceChecker.cs" />
     <Compile Include="IAcceptanceChecker.cs" />
     <Compile Include="IConnectivityReporter.cs" />
-    <Compile Include="IMonitor.cs" />
+    <Compile Include="IMonitorCustom.cs" />
     <Compile Include="IPing.cs" />
     <Compile Include="IPingFactory.cs" />
+    <Compile Include="IPingReply.cs" />
     <Compile Include="IReservationCrud.cs" />
+    <Compile Include="PingReplyCustom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Monitor.cs" />
+    <Compile Include="MonitorCustomCustom.cs" />
     <Compile Include="ReservationCrud.cs" />
     <Compile Include="Restaurant.cs" />
     <Compile Include="Reservation.cs" />

@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace UnitTestExercise
 {
-    public interface IMonitor
+    public interface IMonitorCustom
     {
         void CheckComputerAvailability(string ip, CancellationToken cancellationToken, TimeSpan timeout);
     }

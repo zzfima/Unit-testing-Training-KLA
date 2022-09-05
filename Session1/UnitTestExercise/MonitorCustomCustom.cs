@@ -5,12 +5,12 @@ using System.Threading;
 
 namespace UnitTestExercise
 {
-    public class Monitor : IMonitor
+    public class MonitorCustomCustom : IMonitorCustom
     {
         private readonly IConnectivityReporter _connectivityReporter;
         private readonly IPingFactory _pingFactory;
 
-        public Monitor(IConnectivityReporter connectivityReporter, IPingFactory pingFactory)
+        public MonitorCustomCustom(IConnectivityReporter connectivityReporter, IPingFactory pingFactory)
         {
             _connectivityReporter = connectivityReporter;
             _pingFactory = pingFactory;
