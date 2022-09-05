@@ -20,7 +20,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void PersistShouldCreateFile()
+        public void ShouldComputerBeAvailable()
         {
             //Arrange
             Mock<IConnectivityReporter> mockConnectivityReporter = new Mock<IConnectivityReporter>();
