@@ -56,7 +56,7 @@ namespace TestProject
         }
 
         [TestMethod]
-        public void ShouldComputerUnaavailable()
+        public void ShouldComputerUnavailable()
         {
             //Arrange at initialize
             _mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Unknown);
