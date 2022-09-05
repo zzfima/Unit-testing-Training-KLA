@@ -49,12 +49,14 @@
     <Compile Include="IPingFactory.cs" />
     <Compile Include="IPingReply.cs" />
     <Compile Include="IReservationCrud.cs" />
+    <Compile Include="ITimeoutChecker.cs" />
     <Compile Include="PingReplyCustom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MonitorCustomCustom.cs" />
     <Compile Include="ReservationCrud.cs" />
     <Compile Include="Restaurant.cs" />
     <Compile Include="Reservation.cs" />
+    <Compile Include="TimeotChecker.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

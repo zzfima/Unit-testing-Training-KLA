@@ -43,9 +43,10 @@ namespace TestProject
         public void ShouldComputerBeAvailable()
         {
             //Arrange at initialize
+            var mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
 
             //Act
-            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), new TimeSpan(0, 0, 1));
+            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), mockTimeOut);
 
             //Assert
             _isAttemptFailed.Should().BeFalse();
@@ -58,9 +59,10 @@ namespace TestProject
         {
             //Arrange at initialize
             _mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Unknown);
+            var mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
 
             //Act
-            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), new TimeSpan(0, 0, 1));
+            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), mockTimeOut);
 
             //Assert
             _isAttemptFailed.Should().BeTrue();

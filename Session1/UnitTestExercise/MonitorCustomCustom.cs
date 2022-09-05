@@ -16,18 +16,16 @@ namespace UnitTestExercise
             _pingFactory = pingFactory;
         }
 
-        public void CheckComputerAvailability(string ip, CancellationToken cancellationToken, TimeSpan timeout)
+        public void CheckComputerAvailability(string ip, CancellationToken cancellationToken, ITimeoutChecker timeout)
         {
-            var timeUsed = Stopwatch.StartNew();
-            var millisecondsLeft = (int)timeout.TotalMilliseconds;
-
+            timeout.Start();
             using (var ping = _pingFactory.Create())
             {
-                while (millisecondsLeft > 0 && !cancellationToken.IsCancellationRequested)
+                while (timeout.MillisecondsLeft > 0 && !cancellationToken.IsCancellationRequested)
                 {
                     try
                     {
-                        var reply = ping.Send(ip, millisecondsLeft);
+                        var reply = ping.Send(ip, timeout.MillisecondsLeft);
                         if (reply?.Status == IPStatus.Success)
                         {
                             return;
@@ -38,7 +36,6 @@ namespace UnitTestExercise
                     catch
                     {
                     }
-                    millisecondsLeft = (int)(timeout - timeUsed.Elapsed).TotalMilliseconds;
                 }
             }
             _connectivityReporter.ConnectionFailed(ip);
