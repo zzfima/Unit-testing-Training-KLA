@@ -1,4 +1,5 @@
 using System.Net.NetworkInformation;
+using System.Runtime.Intrinsics.X86;
 using FluentAssertions;
 using Moq;
 using UnitTestExercise;
@@ -13,7 +14,7 @@ namespace TestProject
         private int _attemptFailedCounter;
         private bool _isConnectionFailed;
         private Mock<IPingReplyCustom> _mockPingReplyCustom;
-        private TimeotChecker _mockTimeOut;
+        private Mock<ITimeoutChecker> _mockTimeoutChecker;
 
         [TestInitialize]
         public void Initialize()
@@ -38,16 +39,29 @@ namespace TestProject
             mockPingFactory.Setup(m => m.Create()).Returns(mockPing.Object);
 
             _monitor = new MonitorCustomCustom(mockConnectivityReporter.Object, mockPingFactory.Object);
+
+            _mockTimeoutChecker = new Mock<ITimeoutChecker>();
+            var queue = new Queue<int>();
+            queue.Enqueue(5);
+            queue.Enqueue(4);
+            queue.Enqueue(3);
+            queue.Enqueue(2);
+            queue.Enqueue(1);
+            queue.Enqueue(0);
+            queue.Enqueue(0);
+            queue.Enqueue(0);
+            _mockTimeoutChecker.Setup(m => m.Start());
+            _mockTimeoutChecker.Setup(m => m.Stop());
+            _mockTimeoutChecker.Setup(m => m.MillisecondsLeft).Returns(queue.Dequeue);
         }
 
         [TestMethod]
         public void ShouldComputerBeAvailable()
         {
             //Arrange at initialize
-            _mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
 
             //Act
-            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), _mockTimeOut);
+            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), _mockTimeoutChecker.Object);
 
             //Assert
             _isAttemptFailed.Should().BeFalse();
@@ -60,21 +74,20 @@ namespace TestProject
         {
             //Arrange at initialize
             _mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Unknown);
-            _mockTimeOut = new TimeotChecker(new TimeSpan(0,0,1));
 
             //Act
-            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), _mockTimeOut);
+            _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), _mockTimeoutChecker.Object);
 
             //Assert
             _isAttemptFailed.Should().BeTrue();
             _isConnectionFailed.Should().BeTrue();
-            _attemptFailedCounter.Should().Be(0);
+            _attemptFailedCounter.Should().Be(3);
         }
 
         [TestCleanup]
         public void Cleanup()
         {
-            _mockTimeOut.Stop();
+            _mockTimeoutChecker.Object.Stop();
         }
     }
 }
