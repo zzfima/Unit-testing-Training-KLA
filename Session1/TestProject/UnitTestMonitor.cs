@@ -31,17 +31,25 @@ namespace TestProject
             int attemptFailedCounter = 0;
             bool isConnectionFailed = false;
 
-            mockConnectivityReporter.Setup(m => m.AttemptFailed("")).Callback(() =>
+            mockConnectivityReporter.Setup(m => m.AttemptFailed(It.IsAny<string>())).Callback(() =>
             {
                 isAttemptFailed = true;
                 attemptFailedCounter++;
             });
-            mockConnectivityReporter.Setup(m => m.ConnectionFailed("")).Callback(() => isConnectionFailed = true);
+            mockConnectivityReporter.Setup(m => m.ConnectionFailed(It.IsAny<string>())).Callback(() => isConnectionFailed = true);
             mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Success);
-            mockPing.Setup(m => m.Send("", 0)).Returns(mockPingReplyCustom.Object);
+            mockPing.Setup(m => m.Send(It.IsAny<string>(), It.IsAny<int>())).Returns(mockPingReplyCustom.Object);
             mockPingFactory.Setup(m => m.Create()).Returns(mockPing.Object);
 
             var monitor = new MonitorCustomCustom(mockConnectivityReporter.Object, mockPingFactory.Object);
+
+            //Act
+            monitor.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), new TimeSpan(0, 0, 1));
+
+            //Assert
+            isAttemptFailed.Should().BeFalse();
+            isConnectionFailed.Should().BeFalse();
+            attemptFailedCounter.Should().Be(0);
         }
 
         [TestCleanup]
