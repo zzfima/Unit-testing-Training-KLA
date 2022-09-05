@@ -57,7 +57,7 @@ namespace TestProject
         public void ShouldComputerUnaavailable()
         {
             //Arrange at initialize
-                        _mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Unknown);
+            _mockPingReplyCustom.Setup(m => m.Status).Returns(IPStatus.Unknown);
 
             //Act
             _monitor?.CheckComputerAvailability(It.IsAny<string>(), new CancellationToken(), new TimeSpan(0, 0, 1));
